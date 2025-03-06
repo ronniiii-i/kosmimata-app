@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon-3.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.roonilwazlib.kosmimata"
@@ -24,7 +24,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon.ico"
+      "favicon": "./assets/images/icon-2.png"
     },
     "plugins": [
       "expo-router",

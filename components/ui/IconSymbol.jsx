@@ -6,8 +6,14 @@ import { ViewStyle } from "react-native";
 
 // Add your custom icon mappings here.
 const MAPPING = {
-  "shopping-outline": "shopping-outline",
-  "shopping": "shopping",
+  "shopping-outline": "store-search-outline",
+  shopping: "store-search",
+  "category-outline": "view-list-outline",
+  category: "view-list",
+  "cart-outline": "shopping-outline",
+  cart: "shopping",
+  "account-circle-outline": "account-circle-outline",
+  "account-circle": "account-circle",
   "house.fill": "home",
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",

@@ -79,27 +79,7 @@ const index = () => {
                   styles.architectsdaughter,
                 ]}
               >
-                Shop All
-              </Text>
-            )}
-          </Pressable>
-
-          <Pressable
-            style={({ pressed }) => [
-              styles.button,
-              pressed && styles.buttonPressed,
-            ]}
-            onPress={() => router.push("/new-arrivals")}
-          >
-            {({ pressed }) => (
-              <Text
-                style={[
-                  styles.shopButtonText,
-                  pressed && styles.shopButtonTextPressed,
-                  styles.architectsdaughter,
-                ]}
-              >
-                New Arrivals
+                Shop Now
               </Text>
             )}
           </Pressable>
@@ -146,15 +126,17 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textTransform: "uppercase",
     fontWeight: 500,
+    textAlign: "center",
   },
   subTitle: {
     fontSize: 20,
     marginTop: 8,
+    textAlign: "center",
   },
   shopButtons: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: "5px",
+    gap: "4%",
     width: "100%",
     marginTop: 16,
   },

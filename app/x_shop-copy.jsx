@@ -14,9 +14,9 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { ThemeProvider, useTheme } from "../../hooks/useTheme";
-import { TopNav } from "../../components/TopNav";
-import { lightTheme, darkTheme } from "../../constants/Themes";
+import { ThemeProvider, useTheme } from "../hooks/useTheme";
+import { TopNav } from "../components/TopNav";
+import { lightTheme, darkTheme } from "../constants/Themes";
 
 const earring = require("@/assets/images/products/heros/earhero.jpg");
 const ring = require("@/assets/images/products/heros/ringhero.jpg");
@@ -29,9 +29,9 @@ SplashScreen.preventAutoHideAsync();
 const ShopScreen = () => {
   const router = useRouter();
   const [fontsLoaded] = useFonts({
-    ArchitectsDaughter: require("../../assets/fonts/ArchitectsDaughter-Regular.ttf"),
-    Alegreya: require("../../assets/fonts/Alegreya-VariableFont_wght.ttf"),
-    Montserrat: require("../../assets/fonts/Montserrat-VariableFont_wght.ttf"),
+    ArchitectsDaughter: require("../assets/fonts/ArchitectsDaughter-Regular.ttf"),
+    Alegreya: require("../assets/fonts/Alegreya-VariableFont_wght.ttf"),
+    Montserrat: require("../assets/fonts/Montserrat-VariableFont_wght.ttf"),
   });
 
   if (!fontsLoaded) {

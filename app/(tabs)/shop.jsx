@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   FlatList,
@@ -18,6 +17,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { ThemeProvider, useTheme } from "../../hooks/useTheme";
 import { TopNav } from "../../components/TopNav";
 import { lightTheme, darkTheme } from "../../constants/Themes";
+
 const earring = require("@/assets/images/products/heros/earhero.jpg");
 const ring = require("@/assets/images/products/heros/ringhero.jpg");
 const bracelet = require("@/assets/images/products/heros/bracehero.jpg");
@@ -37,17 +37,20 @@ const ShopScreen = () => {
   if (!fontsLoaded) {
     return <Text>Loading Fonts...</Text>;
   }
+
   useEffect(() => {
-    console.log("ShopScreen re-rendered");
-  });
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   const [searchVisible, setSearchVisible] = useState(false);
   // const [searchQuery, setSearchQuery] = useState("");
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
-  const [quickViewItem, setQuickViewItem] = useState(null); // For Quick View modal
+  const [quickViewItem, setQuickViewItem] = useState(null);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const scrollViewRef = useRef(null); // Reference for ScrollView
+  const scrollViewRef = useRef(null);
   const { isDarkMode } = useTheme();
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -74,9 +77,10 @@ const ShopScreen = () => {
       fontSize: 20,
       fontWeight: "bold",
       marginVertical: 16,
-      marginHorizontal: 8,
+      // marginHorizontal: 8,
       color: theme.text,
       fontFamily: "Montserrat",
+      letterSpacing: 0.5,
     },
     sectionDivider: {
       height: 1,
@@ -85,13 +89,13 @@ const ShopScreen = () => {
     },
     featuredCard: {
       width: width * 0.8,
-      marginHorizontal: 8,
+      marginRight: 8,
       borderRadius: 8,
       overflow: "hidden",
     },
     featuredImage: {
-      width: "100%",
-      height: 200,
+      width: "110%",
+      height: width / 1.8,
     },
     featuredTextContainer: {
       position: "absolute",
@@ -101,8 +105,9 @@ const ShopScreen = () => {
     featuredTitle: {
       color: "#fff",
       fontSize: 20,
-      fontWeight: "bold",
+      fontWeight: "600",
       fontFamily: "Montserrat",
+      letterSpacing: 0.5,
     },
     featuredDescription: {
       color: "#fff",
@@ -117,7 +122,7 @@ const ShopScreen = () => {
     },
     bestSellerImage: {
       width: "100%",
-      height: 150,
+      height: width / 2.2,
       // resizeMode: "cover",
       borderRadius: 8,
     },
@@ -126,6 +131,7 @@ const ShopScreen = () => {
       fontSize: 16,
       color: theme.text,
       fontFamily: "Alegreya",
+      fontWeight: 500,
     },
     bestSellerPrice: {
       fontSize: 14,
@@ -141,6 +147,7 @@ const ShopScreen = () => {
       marginLeft: 4,
       fontSize: 14,
       color: theme.text,
+      fontFamily: "Alegreya",
     },
     quickAddButton: {
       marginTop: 8,
@@ -148,6 +155,7 @@ const ShopScreen = () => {
       padding: 8,
       borderRadius: 4,
       alignItems: "center",
+      fontFamily: "Montserrat",
     },
     quickAddText: {
       color: isDarkMode ? lightTheme.primary : darkTheme.primary,
@@ -161,7 +169,7 @@ const ShopScreen = () => {
     },
     newArrivalImage: {
       width: "100%",
-      height: 150,
+      height: width / 2.2,
       borderRadius: 8,
     },
     newArrivalName: {
@@ -169,6 +177,7 @@ const ShopScreen = () => {
       fontSize: 16,
       color: theme.text,
       fontFamily: "Alegreya",
+      fontWeight: 500,
     },
     newArrivalPrice: {
       fontSize: 14,
@@ -212,7 +221,7 @@ const ShopScreen = () => {
     categoryTitle: {
       color: "#fff",
       fontSize: 20,
-      fontWeight: "bold",
+      fontWeight: "600",
       fontFamily: "Montserrat",
     },
     wishlistButton: {
@@ -265,76 +274,80 @@ const ShopScreen = () => {
       top: 16,
       right: 16,
     },
+    last: {
+      marginRight: 0,
+    },
   });
 
   // Dummy data
   const featuredCollections = [
     {
-      id: "1",
+      id: 1,
       title: "Luxury Gold",
       description: "Elegance redefined",
-      image: "https://picsum.photos/400/600?random=1",
+      image: bracelet,
     },
     {
-      id: "2",
+      id: 2,
       title: "Minimalist Silver",
       description: "Simplicity at its best",
-      image: "https://picsum.photos/400/600?random=2",
+      image: earring,
     },
     {
-      id: "3",
+      id: 3,
       title: "Elegant Platinum",
       description: "Timeless beauty",
-      image: "https://picsum.photos/400/600?random=3",
+      image: ring,
+      class: "last",
     },
   ];
 
   const bestSellers = [
     {
-      id: "1",
-      name: "Gold Ring",
+      id: 4,
+      title: "Gold Ring",
       price: "$199",
       rating: 4.5,
       image: ring,
     },
     {
-      id: "2",
-      name: "Silver Necklace",
+      id: 5,
+      title: "Silver Necklace",
       price: "$299",
       rating: 4.7,
       image: necklace,
     },
     {
-      id: "3",
-      name: "Diamond Earrings",
+      id: 6,
+      title: "Diamond Earrings",
       price: "$499",
       rating: 4.9,
       image: earring,
     },
     {
-      id: "4",
-      name: "Ruby Earrings",
+      id: 7,
+      title: "Ruby Earrings",
       price: "$399",
       rating: 4.8,
       image: earring,
     },
     {
-      id: "5",
-      name: "Sapphire Earrings",
+      id: 8,
+      title: "Sapphire Earrings",
       price: "$249",
       rating: 4.6,
       image: earring,
     },
     {
-      id: "6",
-      name: "Amethyst Earrings",
+      id: 9,
+      title: "Amethyst Earrings",
       price: "$399",
       rating: 4.5,
       image: earring,
     },
     {
-      id: "7",
-      name: "Sapphire Necklace",
+      id: 10,
+      title: "Sapphire Necklace",
       price: "$299",
       rating: 4.6,
       image: necklace,
@@ -343,28 +356,28 @@ const ShopScreen = () => {
 
   const newArrivals = [
     {
-      id: "1",
-      name: "Rose Gold Bracelet",
+      id: 11,
+      title: "Rose Gold Bracelet",
       price: "$149",
       isNew: true,
       image: bracelet,
     },
     {
-      id: "2",
-      name: "Pearl Necklace",
+      id: 12,
+      title: "Pearl Necklace",
       price: "$249",
       isNew: true,
       image: necklace,
     },
     {
-      id: "3",
-      name: "Platinum Ring",
+      id: 13,
+      title: "Platinum Ring",
       price: "$349",
       image: ring,
     },
     {
-      id: "4",
-      name: "Gold Chain",
+      id: 14,
+      title: "Gold Chain",
       price: "$199",
       image: necklace,
     },
@@ -372,28 +385,27 @@ const ShopScreen = () => {
 
   const categories = [
     {
-      id: "1",
-      name: "Necklaces",
+      id: 15,
       image: necklace,
+      title: "Necklaces",
     },
     {
-      id: "2",
-      name: "Rings",
+      id: 16,
       image: ring,
+      title: "Rings",
     },
     {
-      id: "3",
-      name: "Earrings",
+      id: 17,
       image: earring,
+      title: "Earrings",
     },
     {
-      id: "4",
-      name: "Bracelets",
+      id: 18,
       image: bracelet,
+      title: "Bracelets",
     },
   ];
 
-  // Toggle wishlist
   const toggleWishlist = (itemId) => {
     setWishlist((prev) =>
       prev.includes(itemId)
@@ -402,7 +414,6 @@ const ShopScreen = () => {
     );
   };
 
-  // Add to cart
   const addToCart = (item) => {
     setCart((prev) => {
       const existingItem = prev.find((cartItem) => cartItem.id === item.id);
@@ -417,23 +428,19 @@ const ShopScreen = () => {
     });
   };
 
-  // Scroll to top
   const scrollToTop = () => {
-    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+    scrollViewRef.current?.scrollToOffset({ offset: 0, animated: true });
   };
 
-  // Open Quick View modal
   const openQuickView = (item) => {
     setQuickViewItem(item);
   };
 
-  // Close Quick View modal
   const closeQuickView = () => {
     setQuickViewItem(null);
   };
 
-  // Render featured collections
-  const renderFeaturedCollection = ({ item, index }) => {
+  const renderFeaturedCollection = ({ item }) => {
     const parallax = scrollY.interpolate({
       inputRange: [0, 200],
       outputRange: [0, -50],
@@ -442,7 +449,11 @@ const ShopScreen = () => {
 
     return (
       <Animated.View
-        style={[styles.featuredCard, { transform: [{ translateY: parallax }] }]}
+        style={[
+          styles.featuredCard,
+          { transform: [{ translateY: parallax }] },
+          item.style ? item.style : "",
+        ]}
       >
         <TouchableOpacity
           style={styles.featuredCard}
@@ -452,7 +463,7 @@ const ShopScreen = () => {
         >
           <Image
             style={styles.featuredImage}
-            source={{ uri: item.image }}
+            source={item.image}
             contentFit="cover"
             transition={200}
             placeholder="https://picsum.photos/200/300?blur=2" // Low-res placeholder
@@ -468,23 +479,28 @@ const ShopScreen = () => {
 
   // Render best sellers
   const renderBestSeller = ({ item }) => (
-    <View style={styles.bestSellerCard}>
+    <TouchableOpacity
+      style={styles.bestSellerCard}
+      onPress={() => router.navigate("ProductDetails", { productId: item.id })}
+    >
       <View style={styles.imgContainer}>
         <Image
           style={styles.bestSellerImage}
-          source={{ uri: item.image }}
+          source={item.image}
           contentFit="cover"
           transition={200}
-          placeholder="https://picsum.photos/200/300?blur=2" // Low-res placeholder
+          placeholder={`https://picsum.photos/200/300?random=${
+            item.id + 1
+          }&blur=2`} // Low-res placeholder
         />
         {/* <TouchableOpacity
-          style={styles.quickViewButton}
-          onPress={() => openQuickView(item)}
-        >
-          <Text style={styles.quickViewText}>Quick View</Text>
-        </TouchableOpacity> */}
+                style={styles.quickViewButton}
+                onPress={() => openQuickView(item)}
+              >
+                <Text style={styles.quickViewText}>Quick View</Text>
+              </TouchableOpacity> */}
       </View>
-      <Text style={styles.bestSellerName}>{item.name}</Text>
+      <Text style={styles.bestSellerName}>{item.title}</Text>
       <Text style={styles.bestSellerPrice}>{item.price}</Text>
       <View style={styles.ratingContainer}>
         <Ionicons name="star" size={16} color="#FFD700" />
@@ -496,29 +512,32 @@ const ShopScreen = () => {
       >
         <Text style={styles.quickAddText}>Add to Cart</Text>
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 
-  // Render new arrivals
   const renderNewArrival = ({ item }) => (
-    <View style={styles.newArrivalCard}>
-      {item.isNew && <Text style={styles.newBadge}>New</Text>}
+    <TouchableOpacity
+      style={styles.newArrivalCard}
+      onPress={() => router.navigate("ProductDetails", { productId: item.id })}
+    >
       <View style={styles.imgContainer}>
         <Image
           style={styles.newArrivalImage}
-          source={{ uri: item.image }}
+          source={item.image}
           contentFit="cover"
           transition={200}
-          placeholder="https://picsum.photos/200/300?blur=2" // Low-res placeholder
+          placeholder={`https://picsum.photos/200/300?random=${
+            item.id + 1
+          }&blur=2`} // Low-res placeholder
         />
         {/* <TouchableOpacity
-          style={styles.quickViewButton}
-          onPress={() => openQuickView(item)}
-        >
-          <Text style={styles.quickViewText}>Quick View</Text>
-        </TouchableOpacity> */}
+                style={styles.quickViewButton}
+                onPress={() => openQuickView(item)}
+              >
+                <Text style={styles.quickViewText}>Quick View</Text>
+              </TouchableOpacity> */}
       </View>
-      <Text style={styles.newArrivalName}>{item.name}</Text>
+      <Text style={styles.newArrivalName}>{item.title}</Text>
       <Text style={styles.newArrivalPrice}>{item.price}</Text>
       <TouchableOpacity
         style={styles.wishlistButton}
@@ -544,17 +563,19 @@ const ShopScreen = () => {
           }
         />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
-  // Render categories
+
   const renderCategory = ({ item }) => (
     <TouchableOpacity
       style={styles.categoryCard}
-      // onPress={() => navigation.navigate("category", { categoryId: item.id })}
+      onPress={() =>
+        router.navigate("CategoryProducts", { categoryId: item.id })
+      }
     >
       <Image
-        style={styles.categoryImage}
         source={item.image}
+        style={styles.categoryImage}
         contentFit="cover"
         transition={200}
         placeholder={`https://picsum.photos/200/300?random=${
@@ -562,74 +583,68 @@ const ShopScreen = () => {
         }&blur=2`} // Low-res placeholder
       />
       <View style={styles.categoryTextContainer}>
-        <Text style={styles.categoryTitle}>{item.name}</Text>
+        <Text style={styles.categoryTitle}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
 
+  const sections = [
+    {
+      title: "Featured Collections",
+      data: featuredCollections,
+      renderItem: renderFeaturedCollection,
+      horizontal: true,
+    },
+    {
+      title: "Best Sellers",
+      data: bestSellers,
+      renderItem: renderBestSeller,
+      horizontal: true,
+    },
+    {
+      title: "New Arrivals",
+      data: newArrivals,
+      renderItem: renderNewArrival,
+      horizontal: true,
+    },
+    {
+      title: "Shop By Category",
+      data: categories,
+      renderItem: renderCategory,
+      numColumns: 2,
+    },
+  ];
+
   return (
     <View style={styles.container}>
-      {/* Top Navigation */}
       <TopNav
         searchVisible={searchVisible}
         setSearchVisible={setSearchVisible}
         cart={cart}
       />
-
-      {/* Main Content */}
-      <ScrollView
-        ref={scrollViewRef} // Attach the ref to ScrollView
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          {
-            useNativeDriver: true,
-          }
+      <FlatList
+        ref={scrollViewRef}
+        data={sections}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <>
+            <Text style={styles.sectionTitle}>{item.title}</Text>
+            <FlatList
+              data={item.data}
+              renderItem={item.renderItem}
+              keyExtractor={(subItem) => subItem.id}
+              horizontal={item.horizontal}
+              numColumns={item.numColumns}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+            />
+            <View style={styles.sectionDivider} />
+          </>
         )}
-        scrollEventThrottle={16}
-      >
-        {/* Featured Collections */}
-        <Text style={styles.sectionTitle}>Featured Collections</Text>
-        <FlatList
-          data={featuredCollections}
-          renderItem={renderFeaturedCollection}
-          keyExtractor={(item) => item.id}
-          horizontal={"true"}
-          showsHorizontalScrollIndicator={false}
-        />
-        <View style={styles.sectionDivider} />
-
-        {/* Best Sellers */}
-        <Text style={styles.sectionTitle}>Best Sellers</Text>
-        <FlatList
-          data={bestSellers}
-          renderItem={renderBestSeller}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-        <View style={styles.sectionDivider} />
-
-        {/* New Arrivals */}
-        <Text style={styles.sectionTitle}>New Arrivals</Text>
-        <FlatList
-          data={newArrivals}
-          renderItem={renderNewArrival}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-        <View style={styles.sectionDivider} />
-
-        {/* Shop By Category */}
-        <Text style={styles.sectionTitle}>Shop By Category</Text>
-        <FlatList
-          data={categories}
-          renderItem={renderCategory}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          style={styles.categoryContainer}
-        />
-      </ScrollView>
+        // contentContainerStyle={{ flexGrow: 1 }}
+      />
 
       {/* Back to Top Button */}
       <TouchableOpacity style={styles.backToTopButton} onPress={scrollToTop}>

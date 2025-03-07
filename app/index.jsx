@@ -11,8 +11,6 @@ import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useRouter } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
-
-import { fonts } from "@/constants/Fonts";
 import logo from "@/assets/images/logo.png";
 import bg from "@/assets/images/homebg.jpeg";
 
@@ -69,7 +67,7 @@ const index = () => {
               styles.button,
               pressed && styles.buttonPressed,
             ]}
-            onPress={() => router.push("/shop-copy")}
+            onPress={() => router.push("/shop")}
           >
             {({ pressed }) => (
               <Text
@@ -88,8 +86,6 @@ const index = () => {
     </ImageBackground>
   );
 };
-
-// how to import font?
 
 export default index;
 
@@ -128,7 +124,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     textAlign: "center",
     height: 60,
-    backgroundColor: "whitesmoke",
     paddingTop: 18,
   },
   subTitle: {

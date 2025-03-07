@@ -69,7 +69,7 @@ const index = () => {
               styles.button,
               pressed && styles.buttonPressed,
             ]}
-            onPress={() => router.push("/shop")}
+            onPress={() => router.push("/shop-copy")}
           >
             {({ pressed }) => (
               <Text
@@ -127,6 +127,9 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontWeight: 500,
     textAlign: "center",
+    height: 60,
+    backgroundColor: "whitesmoke",
+    paddingTop: 18,
   },
   subTitle: {
     fontSize: 20,

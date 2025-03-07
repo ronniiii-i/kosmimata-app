@@ -3,7 +3,9 @@
     "name": "Kosmimata Jewellry",
     "slug": "kosmimata",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -52,7 +54,11 @@
     "updates": {
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/95a17e28-9b66-48f6-b33d-1a255ce76269"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
